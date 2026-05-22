@@ -1,8 +1,12 @@
 <h1><%= @list.name %></h1>
 
+<% if @list.photo.attached? %>
+  <%= cl_image_tag @list.photo.key, height: 400, width: 400, crop: :fill %>
+<% end %>
+
 <%= link_to "Return to Lists", lists_path %>
 <%= link_to "Add a movie to this list", new_list_bookmark_path(@list) %>
 
 <% @list.bookmarks.each do |bookmark| %>
-<li><%= bookmark.movie.title %> -- <%= bookmark.comment %><%= link_to "Remove", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Sure?" } %></li>
+  <li><%= bookmark.movie.title %> -- <%= bookmark.comment %><%= link_to "Remove", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Sure?" } %></li>
 <% end %>
